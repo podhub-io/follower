@@ -31,7 +31,8 @@ setup(
         'Programming Language :: Python :: 3.4',
     ],
     requires=[
-        'feedparser==5.1.3'
+        'feedparser==5.1.3',
+        'ujson==1.33'
     ],
     scripts=[
         'scripts/follower'
