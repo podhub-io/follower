@@ -32,5 +32,8 @@ setup(
     ],
     requires=[
         'feedparser==5.1.3'
+    ],
+    scripts=[
+        'scripts/follower'
     ]
 )
