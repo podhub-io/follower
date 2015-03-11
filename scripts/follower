@@ -7,9 +7,10 @@ The script that workers run to convert RSS (XML) to JSON for consumption
 elsewhere.
 """
 
+from podhub_follower import Feed
 import argparse
 import feedparser
-import podhub_follower
+import json
 
 
 def parse_args():
@@ -27,3 +28,4 @@ def parse_args():
 
 def main():
     args = parse_args()
+    feed = Feed(url)
