@@ -32,7 +32,6 @@ setup(
     ],
     requires=[
         'feedparser==5.1.3',
-        'ujson==1.33'
     ],
     scripts=[
         'scripts/follower'
