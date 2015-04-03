@@ -22,7 +22,6 @@ class Feed(object):
                 setattr(self, key, feed_obj.feed.pop(key))
                 setattr(self, key, kwargs.get(key))
             self._custom_keys = feed_obj.feed
-        return
 
     @property
     def entries(self):
@@ -50,4 +49,3 @@ class Entry(object):
     def __init__(self, **kwargs):
         for key in self._PARAMS:
             setattr(self, key, kwargs.get(key))
-        return
