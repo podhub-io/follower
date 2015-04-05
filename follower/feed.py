@@ -42,13 +42,13 @@ class Feed(object):
             self.feed_id = uuid.uuid4()
             mc.set('/feeds/{}'.format(_feed_hash), self.feed_id)
 
-        self.entries = frozenset(Entry(**entry) for entry in d.entries)
+        self.entries = frozenset(Entry(**entry, feed_id=self.feed_id) for entry in d.entries)  # noqa
 
 
 class Entry(object):
 
     _PARAMS = frozenset([
-        'author', 'author_detail', 'authors', 'comments', 'content',
+        'author', 'author_detail', 'authors', 'comments', 'content', 'feed_id',
         'guidislink', 'id', 'itunes_duration', 'itunes_explicit', 'link',
         'links', 'published', 'published_parsed', 'slash_comments', 'subtitle',
         'subtitle_detail', 'summary', 'summary_detail', 'tags', 'title',
