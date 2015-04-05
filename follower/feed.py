@@ -41,7 +41,7 @@ class Feed(object):
             self.feed_id = uuid.uuid4()
             mc.set('/feeds/{}'.format(_feed_hash), self.feed_id)
 
-        self.entries = frozenset(Entry(**entry, feed_id=self.feed_id) for entry in d.entries)  # noqa
+        self.entries = frozenset(Entry(**dict({'feed_id': self.feed_id}, **entry)) for entry in d.entries)  # noqa
 
 
 class Entry(object):
