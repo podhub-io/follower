@@ -1,6 +1,6 @@
 from app import app
 from feed import Entry, Feed
-from flask import jsonify, render_template
+from flask import jsonify
 
 @app.route('/')
 def index():
