@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-from setuptools import setup
+from setuptools import find_packages, setup
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
@@ -12,7 +12,8 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 setup(
     name='podhub.follower',
     version='v0.0.111',
-    packages=['follower'],
+    packages=find_packages(exclude=['ez_setup']),
+    namespace_packages=['podhub'],
     include_package_data=True,
     license='BSD 3-Clause License',
     description='RSS client for PodHub',
@@ -33,6 +34,7 @@ setup(
     install_requires=[
         'feedparser==5.1.3',
         'Flask==0.10.1',
+        'pylibmc==1.4.1',
     ],
     scripts=[
         'scripts/follower'

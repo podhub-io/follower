@@ -1,8 +1,11 @@
 from flask import Flask, jsonify
+from pkgutil import extend_path
 from werkzeug.exceptions import default_exceptions
 from werkzeug.exceptions import HTTPException
 import os
 import pylibmc
+
+__path__ = extend_path(__path__, __name__)
 
 
 def make_json_error(ex):
