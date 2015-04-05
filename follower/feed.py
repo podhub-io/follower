@@ -63,7 +63,8 @@ class Entry(object):
         m = re.search(link_regex, self.id)
         return int(m.group())
 
-    def get_audio(self):
+    @property
+    def audio(self):
         """
         :return href: URL of audio file for podcast.
         :rtype  href: ``str``
