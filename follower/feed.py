@@ -48,3 +48,12 @@ class Entry(object):
     def __init__(self, **kwargs):
         for key in self._PARAMS:
             setattr(self, key, kwargs.get(key))
+
+    def get_audio(self):
+        """
+        :return href: URL of audio file for podcast.
+        :rtype  href: ``str``
+        """
+        return filter(
+            lambda x: x.get('rel') == 'enclosure', self.links).next().get(
+                'href')
