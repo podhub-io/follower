@@ -39,7 +39,6 @@ class Feed(object):
         feed_obj = d.feed
         for key in self._PARAMS:
             setattr(self, key, feed_obj.feed.pop(key))
-            setattr(self, key, kwargs.get(key))
         self._custom_keys = feed_obj.feed
 
         self.entries = frozenset(Entry(**entry) for entry in d.entries)
