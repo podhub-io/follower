@@ -32,6 +32,7 @@ setup(
     ],
     requires=[
         'feedparser==5.1.3',
+        'Flask==0.10.1',
     ],
     scripts=[
         'scripts/follower'
