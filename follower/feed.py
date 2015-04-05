@@ -29,11 +29,10 @@ class Feed(object):
         Iterates through self._entries and yields an Entry object for each
         entry.
 
-        :return: Generator of all the Entry objects in this Feed object.
-        :rtype:  ``generator``
+        :return: List of all the Entry objects in this Feed object.
+        :rtype:  ``list``
         """
-        for entry in self._entries:
-            yield Entry(**entry)
+        return [Entry(**entry) for entry in self._entries]
 
 
 class Entry(object):
