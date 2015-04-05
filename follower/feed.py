@@ -1,6 +1,6 @@
 from . import mc
+from hashlib import md5
 import feedparser
-import hashlib
 import re
 
 
@@ -22,7 +22,7 @@ class Feed(object):
         self.lookup = {entry.entry_id: entry for entry in self.entries}
 
     def parse_feed(self):
-        url_hash = hashlib.md5(self.url).hexdigest()
+        url_hash = md5(self.url).hexdigest()
 
         d = mc.get(url_hash)
         if not d:
@@ -54,7 +54,7 @@ class Entry(object):
 
     @property
     def entry_id(self):
-        return hashlib.md5(self.id).hexdigest()
+        return md5(self.id).hexdigest()
 
     @property
     def audio(self):
