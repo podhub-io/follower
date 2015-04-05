@@ -53,9 +53,8 @@ class Entry(object):
             setattr(self, key, kwargs.get(key))
 
     @property
-    def entry_id(self, link_regex=r'\d+$'):
-        m = re.search(link_regex, self.id)
-        return int(m.group())
+    def entry_id(self):
+        return hashlib.md5(self.id).hexdigest()
 
     @property
     def audio(self):
