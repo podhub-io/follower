@@ -1,4 +1,5 @@
 import feedparser
+import re
 
 
 class Feed(object):
@@ -48,6 +49,11 @@ class Entry(object):
     def __init__(self, **kwargs):
         for key in self._PARAMS:
             setattr(self, key, kwargs.get(key))
+
+    @property
+    def entry_id(self, link_regex=r'\d+$'):
+        m = re.search(link_regex, self.id)
+        return int(m.group())
 
     def get_audio(self):
         """
