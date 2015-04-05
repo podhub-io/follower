@@ -1,51 +1,18 @@
-import feedparser
+from flask import Flask, jsonify
+from werkzeug.exceptions import default_exceptions
+from werkzeug.exceptions import HTTPException
 
 
-class Feed(object):
+def make_json_error(ex):
+    response = jsonify(message=str(ex))
+    if isinstance(ex, HTTPException):
+        response.status_code = ex.code
+    else:
+        response.status_code = 500
+    return response
 
-    _PARAMS = frozenset([
-        'author', 'author_detail', 'authors', 'generator', 'generator_detail',
-        'image', 'itunes_explicit', 'language', 'link', 'links', 'publisher',
-        'publisher_detail', 'rawvoice_frequency', 'rawvoice_rating', 'rights',
-        'rights_detail', 'subtitle', 'subtitle_detail', 'summary',
-        'summary_detail', 'sy_updatefrequency', 'sy_updateperiod', 'tags',
-        'title', 'title_detail', 'updated', 'updated_parsed'
-    ])
+app = Flask(__name__)
+app.config.from_object('config')
 
-    def __init__(self, url=None, **kwargs):
-        self.url = url
-        if url is not None:
-            d = feedparser.parse(url)
-            feed_obj = d.feed
-            self._entries = d.entries
-            for key in self._PARAMS:
-                setattr(self, key, feed_obj.feed.pop(key))
-                setattr(self, key, kwargs.get(key))
-            self._custom_keys = feed_obj.feed
-
-    @property
-    def entries(self):
-        """
-        Iterates through self._entries and yields an Entry object for each
-        entry.
-
-        :return: Generator of all the Entry objects in this Feed object.
-        :rtype:  ``generator``
-        """
-        for entry in self._entries:
-            yield Entry(**entry)
-
-
-class Entry(object):
-
-    _PARAMS = frozenset([
-        'author', 'author_detail', 'authors', 'comments', 'content',
-        'guidislink', 'id', 'itunes_duration', 'itunes_explicit', 'link',
-        'links', 'published', 'published_parsed', 'slash_comments', 'subtitle',
-        'subtitle_detail', 'summary', 'summary_detail', 'tags', 'title',
-        'title_detail', 'wfw_commentrss'
-    ])
-
-    def __init__(self, **kwargs):
-        for key in self._PARAMS:
-            setattr(self, key, kwargs.get(key))
+for code in default_exceptions.iterkeys():
+    app.error_handler_spec[None][code] = make_json_error
