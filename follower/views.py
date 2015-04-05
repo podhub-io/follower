@@ -18,7 +18,7 @@ def feed(url, index):
     feed = Feed(url=url)
 
     try:
-        entry = feed.lookup().get(index)
+        entry = feed.lookup.get(index)
     except TypeError:
         return jsonify(error_message='index must be an integer.'), 400
     except IndexError:
