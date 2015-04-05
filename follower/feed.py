@@ -19,14 +19,7 @@ class Feed(object):
         self.url = url
         if url is not None:
             self.parse_feed()
-
-    @property
-    def lookup(self):
-        """
-        :return: Dictionary lookup containing `{id: entry}`.
-        :rtype: ``dict``
-        """
-        return {entry.entry_id: entry for entry in self.entries}
+        self.lookup = {entry.entry_id: entry for entry in self.entries}
 
     def parse_feed(self):
         url_hash = hashlib.md5(self.url).hexdigest()
