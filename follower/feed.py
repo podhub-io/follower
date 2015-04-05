@@ -1,4 +1,6 @@
+from . import mc
 import feedparser
+import hashlib
 import re
 
 
@@ -16,24 +18,7 @@ class Feed(object):
     def __init__(self, url=None, **kwargs):
         self.url = url
         if url is not None:
-            d = feedparser.parse(url)
-            feed_obj = d.feed
-            self._entries = d.entries
-            for key in self._PARAMS:
-                setattr(self, key, feed_obj.feed.pop(key))
-                setattr(self, key, kwargs.get(key))
-            self._custom_keys = feed_obj.feed
-
-    @property
-    def entries(self):
-        """
-        Iterates through self._entries and yields an Entry object for each
-        entry.
-
-        :return: Set of all the Entry objects in this Feed object.
-        :rtype:  ``frozenset``
-        """
-        return frozenset(Entry(**entry) for entry in self._entries)
+            self.parse_feed()
 
     @property
     def lookup(self):
@@ -42,6 +27,22 @@ class Feed(object):
         :rtype: ``dict``
         """
         return {entry.entry_id: entry for entry in self.entries}
+
+    def parse_feed(self):
+        url_hash = hashlib.md5(self.url).hexdigest()
+
+        d = mc.get(url_hash)
+        if not d:
+            d = feedparser.parse(self.url)
+            mc.set(url_hash, d)
+
+        feed_obj = d.feed
+        for key in self._PARAMS:
+            setattr(self, key, feed_obj.feed.pop(key))
+            setattr(self, key, kwargs.get(key))
+        self._custom_keys = feed_obj.feed
+
+        self.entries = frozenset(Entry(**entry) for entry in d.entries)
 
 
 class Entry(object):
