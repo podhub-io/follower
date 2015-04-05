@@ -30,7 +30,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
     ],
-    requires=[
+    install_requires=[
         'feedparser==5.1.3',
         'Flask==0.10.1',
     ],
