@@ -1,7 +1,6 @@
-from . import mc
+from . import app, mc
 from hashlib import md5
 import feedparser
-import re
 import uuid
 
 
