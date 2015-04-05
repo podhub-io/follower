@@ -16,7 +16,7 @@ class Feed(object):
         self.url = url
         if url is not None:
             d = feedparser.parse(url)
-            feed = d.feed
+            feed_obj = d.feed
             self._entries = d.entries
             for key in self._PARAMS:
                 setattr(self, key, feed_obj.feed.pop(key))
