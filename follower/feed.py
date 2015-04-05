@@ -35,6 +35,14 @@ class Feed(object):
         """
         return [Entry(**entry) for entry in self._entries]
 
+    @property
+    def lookup(self):
+        """
+        :return: Dictionary lookup containing `{id: entry}`.
+        :rtype: ``dict``
+        """
+        return {entry.entry_id: entry for entry in self.entries}
+
 
 class Entry(object):
 
