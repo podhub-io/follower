@@ -1,31 +1,6 @@
 #!/usr/bin/env python3
 
-"""
-follower:
+from podhub.follower import app
 
-The script that workers run to convert RSS (XML) to JSON for consumption
-elsewhere.
-"""
-
-from podhub_follower import Feed
-import argparse
-import feedparser
-import json
-
-
-def parse_args():
-    """
-    Sets up and parses command line arguments.
-
-    :return args: Object containing values from command line arguments.
-    :rtype  args: ``argparse.Namespace``
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-r', '--rss-url', type=str, required=True,
-                        help="URL to the podcast's RSS feed.")
-    args = parser.parse_args()
-    return args
-
-def main():
-    args = parse_args()
-    feed = Feed(url)
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0')
