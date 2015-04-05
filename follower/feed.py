@@ -34,7 +34,7 @@ class Feed(object):
         d = mc.get(url_hash)
         if not d:
             d = feedparser.parse(self.url)
-            mc.set(url_hash, d)
+            mc.set(url_hash, d, time=app.config.get('URL_PARSE_TIMEOUT'))
 
         feed_obj = d.feed
         for key in self._PARAMS:
