@@ -2,6 +2,7 @@ from . import mc
 from hashlib import md5
 import feedparser
 import re
+import uuid
 
 
 class Feed(object):
@@ -34,6 +35,12 @@ class Feed(object):
         for key in self._PARAMS:
             setattr(self, key, feed_obj.feed.pop(key))
         self._custom_keys = feed_obj.feed
+
+        _feed_hash = md5(''.join([self.url, self.title])).hexdigest()
+        self.feed_id = mc.get('/feeds/{}'.format(_feed_hash))
+        if not self.feed_id:
+            self.feed_id = uuid.uuid4()
+            mc.set('/feeds/{}'.format(_feed_hash), self.feed_id)
 
         self.entries = frozenset(Entry(**entry) for entry in d.entries)
 
