@@ -58,9 +58,7 @@ class Entry(object):
         for key in self._PARAMS:
             setattr(self, key, kwargs.get(key))
 
-    @property
-    def entry_id(self):
-        return md5(self.id).hexdigest()
+        self.entry_id = md5(self.id).hexdigest()
 
     @property
     def audio(self):
