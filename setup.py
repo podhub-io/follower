@@ -11,7 +11,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='podhub.follower',
-    version='v0.0.1',
+    version='v0.0.11',
     packages=['follower'],
     include_package_data=True,
     license='BSD 3-Clause License',
