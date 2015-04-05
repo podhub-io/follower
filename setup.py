@@ -10,9 +10,9 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='podhub_follower',
+    name='podhub.follower',
     version='v0.0.1',
-    packages=['podhub_follower'],
+    packages=['follower'],
     include_package_data=True,
     license='BSD 3-Clause License',
     description='RSS client for PodHub',
