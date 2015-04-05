@@ -30,10 +30,10 @@ class Feed(object):
         Iterates through self._entries and yields an Entry object for each
         entry.
 
-        :return: List of all the Entry objects in this Feed object.
-        :rtype:  ``list``
+        :return: Set of all the Entry objects in this Feed object.
+        :rtype:  ``frozenset``
         """
-        return [Entry(**entry) for entry in self._entries]
+        return frozenset(Entry(**entry) for entry in self._entries)
 
     @property
     def lookup(self):
