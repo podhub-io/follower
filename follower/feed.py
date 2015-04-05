@@ -69,6 +69,13 @@ class Entry(object):
         :return href: URL of audio file for podcast.
         :rtype  href: ``str``
         """
-        return filter(
-            lambda x: x.get('rel') == 'enclosure', self.links).next().get(
-                'href')
+        mc_path = '/audio/{}/{}'.format(self.feed_id, self.entry_id)
+        audio_link = mc.get(mc_path)
+        if audio_link:
+            return audio_link
+        else:
+            audio_link = filter(
+                lambda x: x.get('rel') == 'enclosure', self.links).next().get(
+                    'href')
+            mc.set(mc_path, audio_link)
+            return audio_link
