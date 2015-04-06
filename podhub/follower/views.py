@@ -11,6 +11,9 @@ def index():
 @app.route('/audio')
 def feed():
     url = request.args.get('feed_url')
+    if not url:
+        return jsonify(error_message='feed_url required.')
+
     index = request.args.get('index')
     if not index:
         index = -1
