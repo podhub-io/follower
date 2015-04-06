@@ -1,10 +1,12 @@
 from app import app
-from feed import Entry, Feed
+from feed import Feed
 from flask import jsonify
+
 
 @app.route('/')
 def index():
     return jsonify()
+
 
 @app.route('/cast/<url>/<index>')
 def feed(url, index):
