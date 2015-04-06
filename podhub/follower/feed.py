@@ -32,8 +32,8 @@ class Feed(object):
 
         feed_obj = d.feed
         for key in self._PARAMS:
-            setattr(self, key, feed_obj.feed.pop(key))
-        self._custom_keys = feed_obj.feed
+            setattr(self, key, feed_obj.pop(key))
+        self._custom_keys = feed_obj
 
         _feed_hash = md5(''.join([self.url, self.title])).hexdigest()
         self.feed_id = mc.get('/feeds/{}'.format(_feed_hash))
@@ -41,7 +41,8 @@ class Feed(object):
             self.feed_id = uuid.uuid4()
             mc.set('/feeds/{}'.format(_feed_hash), self.feed_id)
 
-        self.entries = frozenset(Entry(**dict({'feed_id': self.feed_id}, **entry)) for entry in d.entries)  # noqa
+        self.entries = tuple(Entry(**dict({'feed_id': self.feed_id}, **entry)) for entry in d.entries)  # noqa
+
 
 
 class Entry(object):
@@ -72,7 +73,7 @@ class Entry(object):
             return audio_link
         else:
             audio_link = filter(
-                lambda x: x.get('rel') == 'enclosure', self.links).next().get(
+                lambda x: x.get('rel') == 'enclosure', self.links)[0].get(
                     'href')
             mc.set(mc_path, audio_link)
             return audio_link
