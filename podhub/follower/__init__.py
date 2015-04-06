@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from os.path import expanduser
 from pkgutil import extend_path
 from werkzeug.exceptions import default_exceptions
 from werkzeug.exceptions import HTTPException
@@ -22,9 +23,9 @@ app.config.update(
     URL_PARSE_TIMEOUT=86400,  # 1 day
 )
 
-if os.access(os.path.expanduser('~/.config/podhub/follower/config.py')):
+if os.access(expanduser('~/.config/podhub/follower/config.py'), os.R_OK):
     app.config.from_pyffile('~/.config/podhub/follower/config.py', silent=True)
-elif os.access('/etc/podhub/follower/config.py'):
+elif os.access('/etc/podhub/follower/config.py', os.R_OK):
     app.config.from_pyffile('/etc/podhub/follower/config.py', silent=True)
 
 mc = pylibmc.Client(app.config.get('MEMCACHED_HOST', '127.0.0.1'),
