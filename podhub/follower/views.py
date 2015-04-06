@@ -12,6 +12,8 @@ def index():
 def feed(feed_id, index):
     url = request.args.get('feed_url')
     index = request.args.get('index')
+    if not index:
+        index = -1
 
     feed = Feed(url=url)
 
