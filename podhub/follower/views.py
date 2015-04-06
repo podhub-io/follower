@@ -17,12 +17,11 @@ def feed():
 
     feed = Feed(url=url)
 
-    entry = feed.entries[index]
-    """
+    try:
+        entry = feed.entries[index]
     except TypeError:
         return jsonify(error_message='index must be an integer.'), 400
     except IndexError:
         return jsonify(error_message='episode {} not found'.format(index)), 400
-    """
 
     return jsonify(feed_url=entry.audio)
