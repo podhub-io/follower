@@ -8,7 +8,7 @@ def index():
     return jsonify()
 
 
-@app.route('/cast/<url>/<index>')
+@app.route('/audio/<url>/<index>')
 def feed(url, index):
     """
     :param url: Podcast feed URL.
