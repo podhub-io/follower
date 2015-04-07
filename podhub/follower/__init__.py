@@ -28,6 +28,15 @@ if os.access(expanduser('~/.config/podhub/follower/config.py'), os.R_OK):
 elif os.access('/etc/podhub/follower/config.py', os.R_OK):
     app.config.from_pyffile('/etc/podhub/follower/config.py', silent=True)
 
+if not app.debug:
+    from logging import FileHandler
+    import logging
+
+    file_handler = FileHandler(
+        app.config.get('LOG_FILE', '/var/log/podhub/follower/app.log'))
+    file_handler.setLevel(logging.WARNING)
+    app.logger.addHandler(file_handler)
+
 mc = pylibmc.Client([app.config.get('MEMCACHED_HOST', '127.0.0.1')],
                     binary=True,
                     behaviors={'tcp_nodelay': True, 'ketama': True})
