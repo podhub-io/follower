@@ -32,7 +32,7 @@ class Feed(object):
 
         feed_obj = d.feed
         for key in self._PARAMS:
-            setattr(self, key, feed_obj.pop(key))
+            setattr(self, key, feed_obj.get(key))
         self._custom_keys = feed_obj
 
         _feed_hash = md5(''.join([self.url, self.title])).hexdigest()
