@@ -3,7 +3,7 @@ MAINTAINER Jon Chen <bsd@voltaire.sh>
 
 EXPOSE 5000
 
-RUN /usr/bin/pacman -Syu --noconfirm libmemcached
+RUN /usr/bin/pacman -Syu --noconfirm libmemcached base-devel
 
 RUN /usr/bin/pip2 install podhub.follower
 
