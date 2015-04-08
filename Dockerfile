@@ -5,7 +5,7 @@ EXPOSE 5000
 
 RUN /usr/bin/pacman -Syu --noconfirm libmemcached
 
-RUN /usr/bin/pip install podhub.follower
+RUN /usr/bin/pip2 install podhub.follower
 
 RUN mkdir -p /var/log/podhub/follower/
 
