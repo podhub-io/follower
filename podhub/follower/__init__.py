@@ -28,7 +28,8 @@ if not app.debug:
 
     file_handler = FileHandler(
         app.config.get('LOG_FILE', '/var/log/podhub/follower/app.log'))
-    file_handler.setLevel(logging.WARNING)
+    file_handler.setLevel(
+        getattr(logging, app.config.get('LOG_LEVEL', 'WARNING')))
     app.logger.addHandler(file_handler)
 
 mc = pylibmc.Client([app.config.get('MEMCACHED_HOST', '127.0.0.1')],
