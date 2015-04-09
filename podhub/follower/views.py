@@ -32,7 +32,7 @@ def feed():
     except IndexError:
         err = 'episode {} not found'.format(index)
         app.logger.info(json.dumps({'error': err}))
-        return jsonify(error_message=), 404
+        return jsonify(error_message=err), 404
 
     app.logger.debug(json.dumps({'audio_url': entry.audio}))
     return jsonify(audio_url=entry.audio)
