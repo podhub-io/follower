@@ -19,7 +19,7 @@ class Feed(object):
     def __init__(self, url=None, **kwargs):
         self.url = url
         app.logger.debug(json.dumps({'url': self.url}))
-        if url is not None:
+        if self.url is not None:
             self.parse_feed()
         self.lookup = {entry.entry_id: entry for entry in self.entries}
 
