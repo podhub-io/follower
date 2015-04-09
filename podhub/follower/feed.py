@@ -30,12 +30,12 @@ class Feed(object):
         d = mc.get(url_hash)
         if d:
             app.logger.debug(
-                json.dumps({'msg': 'Feed title {} parsed.'.format(d.title),
+                json.dumps({'msg': 'Feed title {} parsed.'.format(d.feed.title),
                             'from_cache': True}))
         else:
             d = feedparser.parse(self.url)
             app.logger.debug(
-                json.dumps({'msg': 'Feed title {} parsed.'.format(d.title),
+                json.dumps({'msg': 'Feed title {} parsed.'.format(d.feed.title),
                             'from_cache': False}))
             mc.set('/parsed_url/{}'.format(url_hash), d,
                    time=app.config.get('URL_PARSE_TIMEOUT'))
