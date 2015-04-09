@@ -15,6 +15,8 @@ app.config.update(
     URL_PARSE_TIMEOUT=86400,  # 1 day
 )
 
+# Override app.config from externalized config files. First checks in user's
+# homedir then at the system level in /etc/.
 if os.access(expanduser('~/.config/podhub/follower/config.py'), os.R_OK):
     app.config.from_pyffile('~/.config/podhub/follower/config.py', silent=True)
 elif os.access('/etc/podhub/follower/config.py', os.R_OK):
