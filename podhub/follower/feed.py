@@ -49,15 +49,15 @@ class Feed(object):
         app.logger.info(json.dumps({'feed_hash': _feed_hash}))
         self.feed_id = mc.get('/feeds/{}'.format(_feed_hash))
         if self.feed_id:
-            app.logger.info(json.dumps({'feed_id': self.feed_id,
+            app.logger.info(json.dumps({'feed_id': str(self.feed_id),
                                         'from_cache': True}))
         else:
             self.feed_id = uuid.uuid4()
-            app.logger.info(json.dumps({'feed_id': self.feed_id,
+            app.logger.info(json.dumps({'feed_id': str(self.feed_id),
                                         'from_cache': False}))
-            mc.set('/feeds/{}'.format(_feed_hash), self.feed_id)
+            mc.set('/feeds/{}'.format(_feed_hash), str(self.feed_id))
 
-        self.entries = tuple(Entry(**dict({'feed_id': self.feed_id}, **entry)) for entry in d.entries)  # noqa
+        self.entries = tuple(Entry(**dict({'feed_id': str(self.feed_id)}, **entry)) for entry in d.entries)  # noqa
         app.logger.debug(json.dumps({'entries_in_feed': len(self.entries)}))
 
 
