@@ -35,6 +35,8 @@ setup(
         'feedparser==5.1.3',
         'Flask==0.10.1',
         'pylibmc==1.4.1',
+        'podhub.meh==0.0.111',
+        'gevent==1.0.1',
     ],
     scripts=[
         'scripts/follower'
