@@ -41,13 +41,15 @@ class Feed(object):
                     'msg': 'Feed title {} parsed.'.format(d.feed.title),
                     'from_cache': False
                 }))
-            mc.set('/parsed_url/{}'.format(url_hash), d,
+
+            feed_obj = d.feed
+            for key in self._PARAMS:
+                setattr(self, key, feed_obj.get(key))
+            self._custom_keys = feed_obj
+
+            mc.set('/parsed_url/{}'.format(url_hash), self,
                    time=app.config.get('URL_PARSE_TIMEOUT'))
 
-        feed_obj = d.feed
-        for key in self._PARAMS:
-            setattr(self, key, feed_obj.get(key))
-        self._custom_keys = feed_obj
 
         _feed_hash = md5(''.join([self.url, self.title])).hexdigest()
         app.logger.info(json.dumps({'feed_hash': _feed_hash}))
