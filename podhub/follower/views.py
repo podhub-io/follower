@@ -11,6 +11,19 @@ def index():
 
 @app.route('/audio')
 def feed():
+    """
+    Takes an RSS feed, caches it, and parses it for the specified episode's
+    audio URL.
+
+    :url_param feed_url: URL for podcast's RSS feed.
+    :type      feed_url: ``str``
+
+    :url_param index: Integer specifying episode. Defaults to -1 (latest).
+    :type      index: ``int``
+
+    :return audio_url: URL for specified episode's audio.
+    :rtype  audio_url: ``str``
+    """
     url = request.args.get('feed_url')
     if not url:
         return jsonify(error_message='feed_url required.')
