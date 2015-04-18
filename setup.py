@@ -37,6 +37,9 @@ setup(
         'pylibmc==1.4.1',
         'podhub.meh==0.0.13',
     ],
+    extras_require={
+        'server': ['gevent'],
+    },
     scripts=[
         'scripts/follower'
     ]
