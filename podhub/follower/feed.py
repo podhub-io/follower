@@ -95,9 +95,9 @@ class Entry(object):
                                          'from_cache': True}))
             return audio_link
         else:
-            audio_link = filter(
-                lambda x: x.get('rel') == 'enclosure', self.links)[0].get(
-                    'href')
+            link_objs = filter(
+                lambda x: x.get('rel') == 'enclosure', self.links)
+            audio_link = link_objs[0].get('href')
             mc.set(mc_path, audio_link)
             app.logger.debug(json.dumps({'audio_link': audio_link,
                                          'from_cache': False}))
